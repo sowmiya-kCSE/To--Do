@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Add/Edit Todo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+  <h2 th:text="${todo.id} != null ? 'Edit Todo' : 'Add Todo'"></h2>
+  <form th:action="@{/save}" th:object="${todo}" method="post">
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" th:field="*{title}" class="form-control" required minlength="3" maxlength="100">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea th:field="*{description}" class="form-control"></textarea>
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a href="/" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+</body>
+</html>

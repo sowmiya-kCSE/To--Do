@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Todo App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">TodoApp</a>
+  <a href="/add" class="btn btn-success">Add Task</a>
+</nav>
+<div class="container mt-4">
+  <div class="btn-group mb-3">
+    <a href="/" class="btn btn-secondary">All</a>
+    <a href="/?filter=PENDING" class="btn btn-warning">Pending</a>
+    <a href="/?filter=DONE" class="btn btn-success">Done</a>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr><th>Title</th><th>Description</th><th>Status</th><th>Created</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      <tr th:each="todo : ${todos}">
+        <td th:text="${todo.title}"></td>
+        <td th:text="${todo.description}"></td>
+        <td th:text="${todo.status}"></td>
+        <td th:text="${#temporals.format(todo.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+        <td>
+          <a th:href="@{'/edit/' + ${todo.id}}" class="btn btn-primary btn-sm">Edit</a>
+          <a th:href="@{'/delete/' + ${todo.id}}" class="btn btn-danger btn-sm">Delete</a>
+          <a th:href="@{'/done/' + ${todo.id}}" class="btn btn-success btn-sm" 
+             th:if="${todo.status.name() == 'PENDING'}">Mark Done</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
